@@ -1,0 +1,26 @@
+version: "3"  # optional since v1.27.0
+
+services:
+  # container
+  octopy:
+    # Start when os up
+    restart: unless-stopped
+    # Image base loaded
+    image: octoprint/octoprint
+    # Bind 5000 container's port to 8081 port of machine
+    ports:
+      - "8081:5000"
+    # Bind USB0 of container to USB0 of machine
+    devices:
+      # Printer USB
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      # Camera socket
+      - /dev/video0:/dev/video0
+    # Set name of container
+    container_name: octopy
+
+    # Define environment allow access to camera
+    environment:
+      - ENABLE_MJPG_STREAMER=true
+
+  
